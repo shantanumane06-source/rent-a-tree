@@ -1,37 +1,33 @@
 name: Rent-A-Tree CI
-on:
-    push:
-        branches:
-            - main
 
-    pull_request:
-        branches:
-            - main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: 22
-            
-            - name: Install frontend dependencies
-              run: |
-                cd frontend
-                npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-            - name: Install backend dependencies
-              run: |
-                cd backend
-                npm install
+      # FRONTEND
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
 
-            - name: Build frontend
-              run: |
-                cd frontend
-                npm run build
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      # BACKEND
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
