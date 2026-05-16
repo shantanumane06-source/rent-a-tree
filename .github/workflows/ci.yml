@@ -24,7 +24,7 @@ jobs:
             - name: Install frontend dependencies
               run: |
                 cd frontend
-                npm innstall
+                npm install
 
             - name: Install backend dependencies
               run: |
